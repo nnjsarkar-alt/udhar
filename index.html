@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Udharkhata Welcome Banner</title>
+<style>
+  :root{
+    --card-h: 90px;           /* <- banner height */
+    --radius: 16px;
+    --accent: #14B8A6;        /* teal/green */
+    --accent-dark:#0EA5A0;
+    --bg:#E6FFF8;             /* light teal bg */
+    --text:#063A3E;
+    --white:#ffffff;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:transparent;   /* so WebView background can show through */
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+  .wrap{
+    padding:8px;              /* outer padding to mimic screen margin */
+  }
+  .banner{
+    height:var(--card-h);
+    width:100%;
+    background: linear-gradient(0deg, var(--bg), #f6fffc);
+    border:1px solid rgba(0,0,0,0.06);
+    border-radius:var(--radius);
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+    overflow:hidden;
+    position:relative;
+  }
+
+  /* subtle moving shine */
+  .banner::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background: linear-gradient(110deg, transparent 0%, rgba(255,255,255,0.5) 15%, transparent 30%);
+    transform: translateX(-100%);
+    animation: shine 3.2s linear infinite;
+    pointer-events:none;
+  }
+  @keyframes shine{
+    0%   { transform: translateX(-100%); }
+    100% { transform: translateX(120%); }
+  }
+
+  /* left pill badge */
+  .badge{
+    min-width:64px;
+    height:64px;
+    border-radius:999px;
+    background:conic-gradient(from 220deg, var(--accent), var(--accent-dark));
+    box-shadow: inset 0 0 0 4px rgba(255,255,255,0.4);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex:0 0 auto;
+  }
+  .badge svg{ width:34px; height:34px; fill:#fff; }
+
+  /* text area */
+  .text{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    min-width:0;
+    flex:1 1 auto;
+  }
+  .headline{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-weight:700;
+    font-size:18px;
+    color:var(--text);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+
+  /* blinking “Welcome to Udharkhata” */
+  .blink{
+    animation: blink 1.1s steps(2, start) infinite;
+  }
+  @keyframes blink{
+    50% { opacity:0.25; }
+  }
+
+  .sub{
+    font-size:13px;
+    color:#0f766e;
+    opacity:.9;
+    margin-top:2px;
+  }
+
+  /* right CTA */
+  .cta{
+    flex:0 0 auto;
+    background: var(--accent);
+    color:var(--white);
+    border:none;
+    height:40px;
+    padding:0 14px;
+    border-radius:12px;
+    font-weight:700;
+    letter-spacing:.2px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    cursor:pointer;
+    box-shadow: 0 6px 14px rgba(20,184,166,0.35);
+  }
+  .cta:active{ transform: translateY(1px); }
+  .cta svg{ width:18px; height:18px; fill:#fff; }
+
+  /* ensure the whole banner never exceeds small screens */
+  @media (max-width:360px){
+    .headline{ font-size:16px; }
+    .badge{ width:56px; height:56px; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="banner" role="img" aria-label="Welcome to Udharkhata animated card">
+      <div class="badge" aria-hidden="true">
+        <!-- coin/book icon -->
+        <svg viewBox="0 0 24 24">
+          <path d="M6 4h9a3 3 0 0 1 3 3v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm1.5 3v11H16a1 1 0 0 0 1-1V7H7.5zm0-1H17a1 1 0 0 0-1-1H7a1 1 0 0 0-.5.135V6z"/>
+        </svg>
+      </div>
+
+      <div class="text">
+        <div class="headline">
+          <span class="blink">Welcome to Udharkhata</span>
+        </div>
+        <div class="sub">Your khata, simplified.</div>
+      </div>
+
+      <button class="cta" onclick="window.location.href='udharkhata://open'">
+        <svg viewBox="0 0 24 24"><path d="M5 12h12l-4-4 1.4-1.4L21.8 12l-7.4 5.4L13 16l4-4H5z"/></svg>
+        Open
+      </button>
+    </div>
+  </div>
+</body>
+</html>
